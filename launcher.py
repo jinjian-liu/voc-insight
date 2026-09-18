@@ -1,4 +1,6 @@
+import logging
 import os
+from pathlib import Path
 import socket
 import sys
 import threading
@@ -14,6 +16,20 @@ from app.main import app
 APP_TITLE = "VoC Insight"
 
 
+def configure_logging() -> None:
+    try:
+        data_dir = Path(os.getenv("LOCALAPPDATA", Path.home())) / "VoCInsight"
+        data_dir.mkdir(parents=True, exist_ok=True)
+        logging.basicConfig(
+            filename=data_dir / "voc-insight.log",
+            level=logging.INFO,
+            format="%(asctime)s %(levelname)s %(name)s %(message)s",
+            encoding="utf-8",
+        )
+    except OSError:
+        logging.basicConfig(level=logging.CRITICAL, handlers=[logging.NullHandler()])
+
+
 def available_port(preferred: int = 8765) -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
         if probe.connect_ex(("127.0.0.1", preferred)) != 0:
@@ -24,7 +40,14 @@ def available_port(preferred: int = 8765) -> int:
 
 
 def run_headless(port: int) -> None:
-    uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")
+    uvicorn.run(
+        app,
+        host="127.0.0.1",
+        port=port,
+        log_level="warning",
+        log_config=None,
+        access_log=False,
+    )
 
 
 def tray_image() -> Image.Image:
@@ -37,7 +60,14 @@ def tray_image() -> Image.Image:
 
 def run_desktop(port: int) -> None:
     url = f"http://127.0.0.1:{port}"
-    config = uvicorn.Config(app, host="127.0.0.1", port=port, log_level="warning")
+    config = uvicorn.Config(
+        app,
+        host="127.0.0.1",
+        port=port,
+        log_level="warning",
+        log_config=None,
+        access_log=False,
+    )
     server = uvicorn.Server(config)
     server_thread = threading.Thread(target=server.run, daemon=True)
     server_thread.start()
@@ -66,6 +96,7 @@ def run_desktop(port: int) -> None:
 def main() -> None:
     if "--health-check" in sys.argv:
         return
+    configure_logging()
     port = int(os.getenv("VOC_PORT", available_port()))
     if os.getenv("VOC_HEADLESS") == "1":
         run_headless(port)

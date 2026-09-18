@@ -168,6 +168,12 @@ flowchart LR
 %LOCALAPPDATA%\VoCInsight\voc.db
 ```
 
+如遇启动问题，可查看运行日志：
+
+```text
+%LOCALAPPDATA%\VoCInsight\voc-insight.log
+```
+
 首次运行时 Windows SmartScreen 可能提示“未知发布者”，这是因为个人构建包没有购买代码签名证书。选择“更多信息 → 仍要运行”即可继续。
 
 ## 本地开发
