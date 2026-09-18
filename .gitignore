@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Runtime data
+backend/data/*.db
+backend/data/*.db-*
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+.cache/
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+
+# Packaging
+build/
+dist/
+release/*.exe
+*.spec
+
+# Environment and editor
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
