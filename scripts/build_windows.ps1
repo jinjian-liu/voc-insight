@@ -20,6 +20,8 @@ try {
         --name 'VoC-Insight' `
         --paths 'backend' `
         --add-data 'frontend\dist;frontend_dist' `
+        --add-data 'LICENSE;.' `
+        --add-data 'NOTICE;.' `
         --hidden-import 'uvicorn.logging' `
         --hidden-import 'uvicorn.loops.auto' `
         --hidden-import 'uvicorn.protocols.http.auto' `
@@ -32,5 +34,8 @@ try {
 
 New-Item -ItemType Directory -Path (Join-Path $projectRoot 'release') -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $projectRoot 'dist\VoC-Insight.exe') -Destination (Join-Path $projectRoot 'release\VoC-Insight-Windows-x64.exe') -Force
+foreach ($licenseFile in @('LICENSE', 'NOTICE')) {
+    Copy-Item -LiteralPath (Join-Path $projectRoot $licenseFile) -Destination (Join-Path $projectRoot "release\$licenseFile") -Force
+}
 Write-Output "Package ready: $projectRoot\release\VoC-Insight-Windows-x64.exe"
 

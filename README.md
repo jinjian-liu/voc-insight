@@ -210,7 +210,7 @@ npm run dev
 .\scripts\build_windows.ps1
 ```
 
-输出文件：`release\VoC-Insight-Windows-x64.exe`。
+输出文件：`release\VoC-Insight-Windows-x64.exe`，以及配套的 `release\LICENSE` 和 `release\NOTICE`。发布 Windows 版本时，请一并提供这两个许可文件。
 
 ## 技术架构
 
@@ -253,6 +253,14 @@ launcher.py EXE 桌面启动器
 - 可选的账号权限模式
 - 飞书、企业微信和 Jira 集成
 
-## License
+## 许可证
 
-本项目暂未指定开源许可证。在许可证确定前，保留所有权利。如果对您有用，请不吝反馈，一个简单的“好用”或者对功能的反馈都会使我开心一天！
+本项目采用 [Apache License 2.0](LICENSE)，版权及归属声明见 [NOTICE](NOTICE)。允许商业使用、修改和再分发，具体条件以许可证全文为准。第三方依赖遵循各自的许可证。
+
+## 贡献
+
+欢迎通过 [GitHub Issues](https://github.com/jinjian-liu/voc-insight/issues) 提交问题反馈和功能建议，或通过 Pull Request 贡献代码与文档。
+
+- 提交问题时，请说明应用版本、运行环境、复现步骤及预期结果；请勿附带 API Key 或未经脱敏的客户数据。
+- 提交 Pull Request 时，请说明修改目的和验证结果；涉及功能变更时，请同步更新相关文档并运行适用的检查。
+- 向本项目提交贡献时，除非另有明确声明或约定，贡献内容按 Apache License 2.0 授权；第三方内容须保留原有版权及许可声明。
